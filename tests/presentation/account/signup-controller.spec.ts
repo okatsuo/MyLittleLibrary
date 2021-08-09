@@ -1,4 +1,6 @@
-import { IAccountModel, IAddAccount, IDbAddAccount, SignupController } from '../../../src/presentation/account/signup-controller'
+import { IAccountModel } from '../../../src/domain/models/account'
+import { IAddAccount, IDbAddAccount } from '../../../src/domain/usecases/add-account'
+import { SignupController } from '../../../src/presentation/account/signup-controller'
 import { IEmailValidator } from '../../../src/validation/protocols/email-validator'
 
 const makeEmailValidatorStub = (): IEmailValidator => {

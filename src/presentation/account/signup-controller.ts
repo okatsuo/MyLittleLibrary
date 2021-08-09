@@ -1,21 +1,6 @@
+import { IAccountModel } from '../../domain/models/account'
+import { IAddAccount, IDbAddAccount } from '../../domain/usecases/add-account'
 import { IEmailValidator } from '../../validation/protocols/email-validator'
-
-export interface IAddAccount {
-  name: string
-  email: string
-  password: string
-  passwordConfirmation: string
-}
-
-export interface IAccountModel {
-  id: string
-  name: string
-  email: string
-  password: string
-}
-export interface IDbAddAccount {
-  add: (account: IAddAccount) => Promise<IAccountModel>
-}
 
 export class SignupController {
   constructor (
