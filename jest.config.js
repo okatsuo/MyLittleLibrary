@@ -4,11 +4,11 @@ module.exports = {
 
   clearMocks: true,
 
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  roots: ['<rootDir>/tests'],
 
   testPathIgnorePatterns: ['<rootDir>/dist'],
 
-  roots: ['<rootDir>/tests'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!<rootDir>/src/main/**'],
 
   coverageDirectory: 'coverage',
 
