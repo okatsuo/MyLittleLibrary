@@ -11,7 +11,7 @@ const makeEncrypterStub = (): IEncrypter => {
   return new EncrypterStub()
 }
 
-const makeAddAccountRepoStub = (): IDbAddAccount => {
+const makeDbAddAccountRepoStub = (): IDbAddAccount => {
   class AddAccountRepoStub implements IDbAddAccount {
     async add (account: IAddAccount): Promise<IAccountModel> {
       return { ...account, id: 'valid_id' }
@@ -23,17 +23,17 @@ const makeAddAccountRepoStub = (): IDbAddAccount => {
 interface SutType {
   sut: DbAddAccount
   encrypterStub: IEncrypter
-  addAccountRepoStub: IDbAddAccount
+  DbAddAccountRepoStub: IDbAddAccount
 }
 
 const makeSut = (): SutType => {
   const encrypterStub = makeEncrypterStub()
-  const addAccountRepoStub = makeAddAccountRepoStub()
-  const sut = new DbAddAccount(encrypterStub, addAccountRepoStub)
+  const DbAddAccountRepoStub = makeDbAddAccountRepoStub()
+  const sut = new DbAddAccount(encrypterStub, DbAddAccountRepoStub)
   return {
     sut,
     encrypterStub,
-    addAccountRepoStub
+    DbAddAccountRepoStub
   }
 }
 
@@ -63,8 +63,8 @@ describe('DbAddAccount', () => {
   })
 
   test('should call addAccountRepo with correct values', () => {
-    const { sut, addAccountRepoStub } = makeSut()
-    const addAccountRepoSpy = jest.spyOn(addAccountRepoStub, 'add')
+    const { sut, DbAddAccountRepoStub } = makeSut()
+    const addAccountRepoSpy = jest.spyOn(DbAddAccountRepoStub, 'add')
     const fakeAccount: IAddAccount = {
       name: 'valid_name',
       email: 'valid_mail@mail.com',
