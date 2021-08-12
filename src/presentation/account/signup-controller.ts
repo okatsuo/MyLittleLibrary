@@ -11,7 +11,6 @@ export class SignupController {
   async handle (account: IAddAccount): Promise<IAccountModel> {
     const isValidEmail = this.emailValidator.isValid(account.email)
     if (!isValidEmail) { throw new Error('invalid email') }
-    if (account.password !== account.passwordConfirmation) { throw Error('invalid password confirmation') }
     const user = await this.addAccount.add(account)
     return user
   }

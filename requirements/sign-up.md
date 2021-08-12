@@ -4,6 +4,5 @@
 - name
 - email
 - password
-- passwordConfirmation
 
 ## Validate email

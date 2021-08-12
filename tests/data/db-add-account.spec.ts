@@ -44,8 +44,7 @@ describe('DbAddAccount', () => {
     const fakeAccount: IAddAccount = {
       name: 'valid_name',
       email: 'valid_mail@mail.com',
-      password: 'valid_password',
-      passwordConfirmation: 'valid_password'
+      password: 'valid_password'
     }
     sut.add(fakeAccount)
     expect(encrypterSpy).toBeCalledWith('valid_password')
@@ -56,8 +55,7 @@ describe('DbAddAccount', () => {
     const fakeAccount: IAddAccount = {
       name: 'valid_name',
       email: 'valid_mail@mail.com',
-      password: 'valid_password',
-      passwordConfirmation: 'valid_password'
+      password: 'valid_password'
     }
     const encrypterSpy = jest.spyOn(encrypterStub, 'encrypt')
     sut.add(fakeAccount)
@@ -70,8 +68,7 @@ describe('DbAddAccount', () => {
     const fakeAccount: IAddAccount = {
       name: 'valid_name',
       email: 'valid_mail@mail.com',
-      password: 'hashed_password',
-      passwordConfirmation: 'valid_password'
+      password: 'hashed_password'
     }
     sut.add(fakeAccount)
     expect(addAccountRepoSpy).toBeCalledWith(fakeAccount)

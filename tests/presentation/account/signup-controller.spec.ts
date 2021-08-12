@@ -46,11 +46,10 @@ const makeSut = (): ISutType => {
 
 describe('Sign Up', () => {
   test('should throw if invalid email is provided', async () => {
-    const fakeAccount = {
+    const fakeAccount: IAddAccount = {
       name: 'valid_name',
       email: 'valid_email@mail.com',
-      password: 'valid_password',
-      passwordConfirmation: 'valid_password'
+      password: 'valid_password'
     }
     const { emailValidatorStub, sut } = makeSut()
     jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
@@ -59,45 +58,21 @@ describe('Sign Up', () => {
   })
 
   test('shouldnt throw if valid email is provided', async () => {
-    const fakeAccount = {
+    const fakeAccount: IAddAccount = {
       name: 'valid_name',
       email: 'valid_email@mail.com',
-      password: 'valid_password',
-      passwordConfirmation: 'valid_password'
+      password: 'valid_password'
     }
     const { sut } = makeSut()
 
-    expect(async () => { await sut.handle(fakeAccount) }).not.toThrow()
-  })
-
-  test('should throw if invalid passwordConfirmation is provided', async () => {
-    const fakeAccount = {
-      name: 'valid_name',
-      email: 'valid_email@mail.com',
-      password: 'valid_password',
-      passwordConfirmation: 'valid_passwordConfirmation'
-    }
-    const { sut } = makeSut()
-    await expect(async () => { await sut.handle(fakeAccount) }).rejects.toThrow()
-  })
-
-  test('shouldnt throw if valid passwordConfirmation is provided', async () => {
-    const fakeAccount = {
-      name: 'valid_name',
-      email: 'valid_email@mail.com',
-      password: 'valid_password',
-      passwordConfirmation: 'valid_password'
-    }
-    const { sut } = makeSut()
     expect(async () => { await sut.handle(fakeAccount) }).not.toThrow()
   })
 
   test('should call dbAddAccount with correct values', async () => {
-    const fakeAccount = {
+    const fakeAccount: IAddAccount = {
       name: 'valid_name',
       email: 'valid_email@mail.com',
-      password: 'valid_password',
-      passwordConfirmation: 'valid_password'
+      password: 'valid_password'
     }
 
     const { dbAddAccountStub, sut } = makeSut()
@@ -108,11 +83,10 @@ describe('Sign Up', () => {
   })
 
   test('should return with correct values', async () => {
-    const fakeAccount = {
+    const fakeAccount: IAddAccount = {
       name: 'valid_name',
       email: 'valid_email@mail.com',
-      password: 'valid_password',
-      passwordConfirmation: 'valid_password'
+      password: 'valid_password'
     }
     const { sut } = makeSut()
     const userAccount = await sut.handle(fakeAccount)
