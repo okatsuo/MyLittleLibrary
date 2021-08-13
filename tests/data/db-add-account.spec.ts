@@ -38,7 +38,7 @@ const makeSut = (): SutType => {
 }
 
 describe('DbAddAccount', () => {
-  test('should call encrypter with correct values', () => {
+  test('should call encrypter with correct values', async () => {
     const { sut, encrypterStub } = makeSut()
     const encrypterSpy = jest.spyOn(encrypterStub, 'encrypt')
     const fakeAccount: IAddAccount = {
@@ -46,11 +46,11 @@ describe('DbAddAccount', () => {
       email: 'valid_mail@mail.com',
       password: 'valid_password'
     }
-    sut.add(fakeAccount)
+    await sut.add(fakeAccount)
     expect(encrypterSpy).toBeCalledWith('valid_password')
   })
 
-  test('should be returned a hashed_password', () => {
+  test('should be returned a hashed_password', async () => {
     const { sut, encrypterStub } = makeSut()
     const fakeAccount: IAddAccount = {
       name: 'valid_name',
@@ -58,19 +58,30 @@ describe('DbAddAccount', () => {
       password: 'valid_password'
     }
     const encrypterSpy = jest.spyOn(encrypterStub, 'encrypt')
-    sut.add(fakeAccount)
+    await sut.add(fakeAccount)
     expect(encrypterSpy).toReturnWith('hashed_password')
   })
 
-  test('should call addAccountRepo with correct values', () => {
+  test('should call addAccountRepo with correct values', async () => {
     const { sut, DbAddAccountRepoStub } = makeSut()
     const addAccountRepoSpy = jest.spyOn(DbAddAccountRepoStub, 'add')
     const fakeAccount: IAddAccount = {
       name: 'valid_name',
       email: 'valid_mail@mail.com',
-      password: 'hashed_password'
+      password: 'valid_password'
     }
-    sut.add(fakeAccount)
-    expect(addAccountRepoSpy).toBeCalledWith(fakeAccount)
+    await sut.add(fakeAccount)
+    expect(addAccountRepoSpy).toBeCalledWith({ ...fakeAccount, password: 'hashed_password' })
+  })
+
+  test('should return with correct values', async () => {
+    const { sut } = makeSut()
+    const fakeAccount: IAddAccount = {
+      name: 'valid_name',
+      email: 'valid_mail@mail.com',
+      password: 'valid_password'
+    }
+    const repoAccount = await sut.add(fakeAccount)
+    expect(repoAccount).toEqual({ ...fakeAccount, id: 'valid_id', password: 'hashed_password' })
   })
 })
