@@ -4,8 +4,8 @@ import { IAddAccount, IDbAddAccount } from '../../src/domain/usecases/add-accoun
 
 const makeEncrypterStub = (): IEncrypter => {
   class EncrypterStub implements IEncrypter {
-    encrypt (value: string): string {
-      return 'hashed_password'
+    async encrypt (value: string): Promise<string> {
+      return await Promise.resolve('hashed_password')
     }
   }
   return new EncrypterStub()
@@ -14,7 +14,7 @@ const makeEncrypterStub = (): IEncrypter => {
 const makeDbAddAccountRepoStub = (): IDbAddAccount => {
   class AddAccountRepoStub implements IDbAddAccount {
     async add (account: IAddAccount): Promise<IAccountModel> {
-      return { ...account, id: 'valid_id' }
+      return await Promise.resolve({ ...account, id: 'valid_id' })
     }
   }
   return new AddAccountRepoStub()
@@ -50,16 +50,33 @@ describe('DbAddAccount', () => {
     expect(encrypterSpy).toBeCalledWith('valid_password')
   })
 
-  test('should be returned a hashed_password', async () => {
+  test('it should throws if Encrypter throws', async () => {
     const { sut, encrypterStub } = makeSut()
-    const fakeAccount: IAddAccount = {
+    jest.spyOn(encrypterStub, 'encrypt').mockReturnValueOnce(
+      Promise.reject(new Error())
+    )
+    const account = {
       name: 'valid_name',
-      email: 'valid_mail@mail.com',
+      email: 'valid_email@mail.com',
       password: 'valid_password'
     }
-    const encrypterSpy = jest.spyOn(encrypterStub, 'encrypt')
-    await sut.add(fakeAccount)
-    expect(encrypterSpy).toReturnWith('hashed_password')
+    const promise = sut.add(account)
+    await expect(promise).rejects.toThrow()
+  })
+
+  test('should throws if dbAddAccountRepo throws', async () => {
+    const { sut, DbAddAccountRepoStub } = makeSut()
+    jest.spyOn(DbAddAccountRepoStub, 'add').mockReturnValueOnce(
+      Promise.reject(new Error())
+    )
+
+    const account: IAddAccount = {
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'valid_password'
+    }
+    const promise = sut.add(account)
+    await expect(promise).rejects.toThrow()
   })
 
   test('should call addAccountRepo with correct values', async () => {
