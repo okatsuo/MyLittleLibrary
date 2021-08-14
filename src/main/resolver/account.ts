@@ -1,4 +1,5 @@
 import { Arg, Mutation, Query, Resolver } from 'type-graphql'
+import { makeAddAccountController } from '../factory/add-account'
 import { AccountSchema } from '../schema/account'
 
 @Resolver()
@@ -16,6 +17,7 @@ export class AccountResolver {
       @Arg('email') email: string,
       @Arg('password') password: string
   ): Promise<any> {
-    return `${name}, ${email}, ${password}`
+    const addAccount = makeAddAccountController()
+    return await addAccount.handle({ name, email, password })
   }
 }
