@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "email-validator": "^2.0.4",
-    "mongodb": "^4.1.0"
+    "mongodb": "^4.1.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.37"
   }
 }
