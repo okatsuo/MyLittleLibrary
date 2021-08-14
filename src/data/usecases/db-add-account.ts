@@ -1,9 +1,6 @@
 import { IAccountModel } from '../../domain/models/account'
 import { IAddAccount, IDbAddAccount } from '../../domain/usecases/add-account'
-
-export interface IEncrypter {
-  encrypt: (value: string) => Promise<string>
-}
+import { IEncrypter } from '../protocols/encrypter'
 
 export class DbAddAccount implements IDbAddAccount {
   constructor (

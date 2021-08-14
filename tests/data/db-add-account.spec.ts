@@ -1,4 +1,5 @@
-import { DbAddAccount, IEncrypter } from '../../src/data/usecases/db-add-account'
+import { IEncrypter } from '../../src/data/protocols/encrypter'
+import { DbAddAccount } from '../../src/data/usecases/db-add-account'
 import { IAccountModel } from '../../src/domain/models/account'
 import { IAddAccount, IDbAddAccount } from '../../src/domain/usecases/add-account'
 

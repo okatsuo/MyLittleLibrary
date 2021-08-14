@@ -1,5 +1,6 @@
-import { IEncrypter } from '../../data/usecases/db-add-account'
+
 import bcrypt from 'bcrypt'
+import { IEncrypter } from '../../data/protocols/encrypter'
 
 export class BcryptAdapter implements IEncrypter {
   async encrypt (value: string): Promise<string> {
