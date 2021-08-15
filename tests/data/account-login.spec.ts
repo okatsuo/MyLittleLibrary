@@ -1,4 +1,5 @@
-import { AccountLogin, IGenerateAccessToken, IHashComparer, ILoadAccountByEmail } from '../../src/data/usecases/account-login'
+import { IHashComparer } from '../../src/data/protocols/hashComparer'
+import { AccountLogin, IGenerateAccessToken, ILoadAccountByEmail } from '../../src/data/usecases/account-login'
 import { IAccountModel } from '../../src/domain/models/account'
 import { ILogin } from '../../src/domain/usecases/login'
 

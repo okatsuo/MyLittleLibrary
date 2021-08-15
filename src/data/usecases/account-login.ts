@@ -1,13 +1,10 @@
 import { IAccountModel } from '../../domain/models/account'
 import { ILoginModel } from '../../domain/models/login'
 import { IAccountLogin, ILogin } from '../../domain/usecases/login'
+import { IHashComparer } from '../protocols/hashComparer'
 
 export interface ILoadAccountByEmail {
   loadAccountByEmail: (email: string) => Promise<IAccountModel>
-}
-
-export interface IHashComparer {
-  compare: (value: string, hashed_value: string) => Promise<boolean>
 }
 
 export interface IGenerateAccessToken {
