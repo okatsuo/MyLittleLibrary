@@ -11,6 +11,6 @@ export class AddAccountMongo implements IDbAddAccount, ILoadAccountByEmail {
   }
 
   async loadAccountByEmail (email: string): Promise<IAccountModel | undefined> {
-    return await AccountEntity.findOne({ email })
+    return await AccountEntity.findOne({ where: { email } })
   }
 }
