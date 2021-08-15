@@ -1,5 +1,5 @@
 export interface IAccountModel {
-  id: string
+  readonly id: string
   name: string
   email: string
   password: string
