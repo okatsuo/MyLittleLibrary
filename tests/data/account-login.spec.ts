@@ -1,7 +1,8 @@
 import { IGenerateAccessToken } from '../../src/data/protocols/access-token'
 import { IHashComparer } from '../../src/data/protocols/hashComparer'
-import { AccountLogin, ILoadAccountByEmail } from '../../src/data/usecases/account-login'
+import { AccountLogin } from '../../src/data/usecases/account-login'
 import { IAccountModel } from '../../src/domain/models/account'
+import { ILoadAccountByEmail } from '../../src/domain/usecases/load-account-by-email'
 import { ILogin } from '../../src/domain/usecases/login'
 import { IAccessTokenInput } from '../../src/infra/auth/access-token-adapter'
 
@@ -91,7 +92,7 @@ describe('Account login', () => {
     const hashComparerSpy = jest.spyOn(hashComparer, 'compare')
     const account = await accountRepositoryStub.loadAccountByEmail(fakeLogin.email)
     await sut.login(fakeLogin)
-    expect(hashComparerSpy).toBeCalledWith(fakeLogin.password, account.password)
+    expect(hashComparerSpy).toBeCalledWith(fakeLogin.password, account?.password)
   })
 
   test('should throw if hashComparer throws', async () => {
@@ -116,7 +117,7 @@ describe('Account login', () => {
     const accessTokenSpy = jest.spyOn(accessToken, 'generate')
     const account = await accountRepositoryStub.loadAccountByEmail(fakeLogin.email)
     await sut.login(fakeLogin)
-    expect(accessTokenSpy).toBeCalledWith({ id: account.id, name: account.name })
+    expect(accessTokenSpy).toBeCalledWith({ id: account?.id, name: account?.name })
   })
 
   test('should throw if accessToken throws', async () => {
