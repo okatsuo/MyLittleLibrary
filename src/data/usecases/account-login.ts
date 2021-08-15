@@ -1,14 +1,11 @@
 import { IAccountModel } from '../../domain/models/account'
 import { ILoginModel } from '../../domain/models/login'
 import { IAccountLogin, ILogin } from '../../domain/usecases/login'
+import { IGenerateAccessToken } from '../protocols/access-token'
 import { IHashComparer } from '../protocols/hashComparer'
 
 export interface ILoadAccountByEmail {
   loadAccountByEmail: (email: string) => Promise<IAccountModel>
-}
-
-export interface IGenerateAccessToken {
-  generate: (id: string, name: string) => Promise<string>
 }
 
 export class AccountLogin implements IAccountLogin {
