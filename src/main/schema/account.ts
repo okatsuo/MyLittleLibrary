@@ -10,7 +10,4 @@ export class AccountSchema {
 
   @Field()
   name: string
-
-  @Field()
-  password: string
 }
