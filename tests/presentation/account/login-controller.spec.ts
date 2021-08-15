@@ -17,7 +17,7 @@ const makeAccountLoginStub = (): IAccountLogin => {
     async login (values: ILogin): Promise<ILoginModel> {
       return {
         token: 'valid_token',
-        user: {
+        account: {
           id: 'valid_id',
           name: 'valid_name',
           email: 'valid_email',
@@ -91,7 +91,7 @@ describe('Login', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  test('should return an token and user if is valid mail', async () => {
+  test('should return an token and account if is valid mail', async () => {
     const fakeLogin: ILogin = {
       email: 'valid_email@mail.com',
       password: 'valid_password'
@@ -100,7 +100,7 @@ describe('Login', () => {
     const loginData = await sut.handle(fakeLogin)
     expect(loginData).toEqual({
       token: 'valid_token',
-      user: {
+      account: {
         id: 'valid_id',
         name: 'valid_name',
         email: 'valid_email',

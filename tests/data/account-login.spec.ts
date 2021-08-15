@@ -144,7 +144,7 @@ describe('Account login', () => {
     expect(loginData).toEqual(
       {
         token: 'valid_token',
-        user: {
+        account: {
           id: 'valid_id',
           email: 'valid_email@mail.com',
           name: 'valid_name',

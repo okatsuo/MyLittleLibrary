@@ -19,7 +19,7 @@ export class AccountLogin implements IAccountLogin {
         const token = await this.acessToken.generate({ id: account.id, name: account.name })
         return {
           token,
-          user: account
+          account
         }
       }
     }
