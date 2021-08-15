@@ -1,3 +1,5 @@
+import { IAccessTokenInput } from '../../infra/auth/access-token-adapter'
+
 export interface IGenerateAccessToken {
-  generate: (id: string, name: string) => Promise<string>
+  generate: (data: IAccessTokenInput) => Promise<string>
 }

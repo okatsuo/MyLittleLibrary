@@ -3,6 +3,7 @@ import { IHashComparer } from '../../src/data/protocols/hashComparer'
 import { AccountLogin, ILoadAccountByEmail } from '../../src/data/usecases/account-login'
 import { IAccountModel } from '../../src/domain/models/account'
 import { ILogin } from '../../src/domain/usecases/login'
+import { IAccessTokenInput } from '../../src/infra/auth/access-token-adapter'
 
 const makeAccountRepository = (): ILoadAccountByEmail => {
   class AccountRepository implements ILoadAccountByEmail {
@@ -29,7 +30,7 @@ const makeHashComparerStub = (): IHashComparer => {
 
 const makeAccessTokenStub = (): IGenerateAccessToken => {
   class AcessTokenStub implements IGenerateAccessToken {
-    async generate (id: string, name: string): Promise<string> {
+    async generate (data: IAccessTokenInput): Promise<string> {
       return 'valid_token'
     }
   }
@@ -115,7 +116,7 @@ describe('Account login', () => {
     const accessTokenSpy = jest.spyOn(accessToken, 'generate')
     const account = await accountRepositoryStub.loadAccountByEmail(fakeLogin.email)
     await sut.login(fakeLogin)
-    expect(accessTokenSpy).toBeCalledWith(account.id, account.name)
+    expect(accessTokenSpy).toBeCalledWith({ id: account.id, name: account.name })
   })
 
   test('should throw if accessToken throws', async () => {

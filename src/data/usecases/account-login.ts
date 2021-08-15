@@ -20,7 +20,7 @@ export class AccountLogin implements IAccountLogin {
     if (account) {
       const isValidPassword = await this.hashComparer.compare(accountData.password, account.password)
       if (isValidPassword) {
-        const token = await this.acessToken.generate(account.id, account.name)
+        const token = await this.acessToken.generate({ id: account.id, name: account.name })
         return {
           token,
           user: account
