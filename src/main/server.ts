@@ -12,7 +12,7 @@ import '../infra/db/config/connection'
     })
   })
 
-  const port = process.env.PORT ?? 4100
+  const port = process.env.PORT || 4100
   server.listen(port).then(({ url }) => {
     console.log(`server running at ${url}`)
   }).catch(() => {
