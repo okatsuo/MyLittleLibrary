@@ -13,7 +13,7 @@ createConnection({
   useUnifiedTopology: true,
   useNewUrlParser: true,
   entities: [
-    'src/infra/db/entity/**/*.ts'
+    process.env.NODE_ENV === 'prod' ? 'dist/infra/db/entity/*.js ' : 'src/infra/db/entity/**/*.ts'
   ],
   migrations: [
     'src/infra/db/migrations/**/*.ts'

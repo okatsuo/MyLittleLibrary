@@ -12,7 +12,8 @@ import '../infra/db/config/connection'
     })
   })
 
-  server.listen(4100).then(({ url }) => {
+  const appPort = process.env.APP_PORT ?? 4100
+  server.listen(appPort).then(({ url }) => {
     console.log(`server running at ${url}`)
   }).catch(() => {
     console.log('something goes wrong')

@@ -1,9 +1,11 @@
 {
-  "name": "my-little-library",
+  "name": "boilerplate-backend-with-login",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/main/server.js",
+    "build": "tsc -p tsconfig-build.json",
     "dev": "nodemon src/main/server.ts --exec ts-node src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test-verbose": "jest --passWithNoTests --runInBand",
