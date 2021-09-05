@@ -5,6 +5,7 @@ import { IGenerateAccessToken } from '../../data/protocols/access-token'
 export interface IAccessTokenInput {
   id: string
   name: string
+  email: string
 }
 
 export class AccessToken implements IGenerateAccessToken {
