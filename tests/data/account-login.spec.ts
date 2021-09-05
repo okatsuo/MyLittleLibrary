@@ -117,7 +117,7 @@ describe('Account login', () => {
     const accessTokenSpy = jest.spyOn(accessToken, 'generate')
     const account = await accountRepositoryStub.loadAccountByEmail(fakeLogin.email)
     await sut.login(fakeLogin)
-    expect(accessTokenSpy).toBeCalledWith({ id: account?.id, name: account?.name })
+    expect(accessTokenSpy).toBeCalledWith({ id: account?.id, name: account?.name, email: fakeLogin.email })
   })
 
   test('should throw if accessToken throws', async () => {

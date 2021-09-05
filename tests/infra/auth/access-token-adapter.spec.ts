@@ -22,18 +22,20 @@ describe('AcessToken', () => {
   test('should calls JWT with correct values ', async () => {
     const fakeData = {
       id: 'valid_id',
-      name: 'valid_name'
+      name: 'valid_name',
+      email: 'valid_mail@mail.com'
     }
     const { sut } = makeSut()
     const jwtSpy = jest.spyOn(jwt, 'sign')
     await sut.generate(fakeData)
-    expect(jwtSpy).toBeCalledWith({ id: fakeData.id, name: fakeData.name }, process.env.AUTH_KEY as string)
+    expect(jwtSpy).toBeCalledWith({ id: fakeData.id, name: fakeData.name, email: fakeData.email }, process.env.AUTH_KEY as string)
   })
 
   test('should return an AccessToken value on success', async () => {
     const fakeData = {
       id: 'valid_id',
-      name: 'valid_name'
+      name: 'valid_name',
+      email: 'valid_mail@mail.com'
     }
     const { sut } = makeSut()
     const accessToken = await sut.generate(fakeData)
@@ -43,7 +45,8 @@ describe('AcessToken', () => {
   test('should throws if JWT lib throw', async () => {
     const fakeData = {
       id: 'valid_id',
-      name: 'valid_name'
+      name: 'valid_name',
+      email: 'valid_mail@mail.com'
     }
     const { sut } = makeSut()
     jest.spyOn(jwt, 'sign').mockImplementationOnce(() => {
